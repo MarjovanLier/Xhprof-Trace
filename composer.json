@@ -45,7 +45,9 @@
     "symfony/console": "^v5|^v6|^v7"
   },
   "require-dev": {
-    "enlightn/security-checker": "^v1|^v2"
+    "enlightn/security-checker": "^v1|^v2",
+    "phpunit/php-code-coverage": "^11",
+    "phpunit/phpunit": "^11"
   },
   "scripts": {
     "post-update-cmd": [
