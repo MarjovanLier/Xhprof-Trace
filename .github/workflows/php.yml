@@ -29,6 +29,46 @@ jobs:
           php-version: ${{ matrix.php-versions }}
           extensions: mbstring, xml, zip, pdo_mysql
 
+      # This step validates the composer.json and composer.lock files.
+      - name: Validate composer.json and composer.lock
+        id: composer-validate
+        if: steps.setup-php.outcome == 'success'
+        run: composer validate --strict
+
+      # This step installs the project dependencies.
+      - name: Install dependencies
+        id: composer-install
+        if: steps.composer-validate.outcome == 'success'
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      # This step caches the Composer packages for faster execution.
+      - name: Cache Composer packages
+        id: composer-cache
+        if: steps.composer-install.outcome =='success'
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Set up Go
+        id: setup-go
+        uses: actions/setup-go@v3
+        if: steps.composer-cache.outcome == 'success'
+        with:
+          go-version: '1.22'
+
+      - name: Install osv-scanner
+        id: install-osv-scanner
+        if: steps.setup-go.outcome == 'success'
+        run: go install github.com/google/osv-scanner/cmd/osv-scanner@v1
+
+      - name: Scan composer.lock for vulnerabilities
+        id: scan-vulnerabilities
+        if: steps.install-osv-scanner.outcome == 'success'
+        run: osv-scanner scan --no-ignore composer.lock
+
   Release:
     needs: test
     runs-on: ubuntu-latest
