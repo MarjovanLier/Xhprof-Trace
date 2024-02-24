@@ -2,14 +2,13 @@ FROM php:8.3-cli
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
-    git \
-    zip \
-    libzip-dev \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install PHP extensions
-RUN pecl install xhprof && docker-php-ext-enable xhprof
-RUN docker-php-ext-install zip
+        git \
+        zip \
+        libzip-dev \
+        && pecl install xhprof \
+        && docker-php-ext-enable xhprof \
+        && docker-php-ext-install zip \
+        && rm -rf /var/lib/apt/lists/*
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
