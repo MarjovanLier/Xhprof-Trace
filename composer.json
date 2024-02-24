@@ -23,7 +23,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "MarjovanLier\\XhprofTrace\\Tests\\": "tests"
+      "MarjovanLier\\XhprofTrace\\Tests\\Unit\\": "tests"
     }
   },
   "config": {
@@ -41,11 +41,13 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "require": {
-    "php": "^8.0|^8.1|^8.2",
+    "php": "^8.1|^8.2|^8.3",
     "symfony/console": "^v5|^v6|^v7"
   },
   "require-dev": {
-    "enlightn/security-checker": "^v1|^v2"
+    "enlightn/security-checker": "^v1|^v2",
+    "phpunit/php-code-coverage": "^10|^11",
+    "phpunit/phpunit": "^10|^11"
   },
   "scripts": {
     "post-update-cmd": [
@@ -53,9 +55,11 @@
       "php -d memory_limit=-1 ./vendor/bin/security-checker security:check",
       "composer outdated -D"
     ],
+    "test:phpunit": "phpunit --version && phpunit --no-coverage --no-logging",
     "test:vulnerabilities-check": "php -d memory_limit=-1 ./vendor/bin/security-checker security:check"
   },
   "scripts-descriptions": {
+    "test:phpunit": "Execute PHPUnit tests to verify code functionality.",
     "test:vulnerabilities-check": "Scan dependencies for known security vulnerabilities."
   }
 }
