@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  Test:
+  test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -87,7 +87,7 @@ jobs:
         if: steps.composer-dump-autoload.outcome =='success'
         run: composer test:phpunit
 
-  Release:
+  release:
     needs: test
     runs-on: ubuntu-latest
     if: success()
