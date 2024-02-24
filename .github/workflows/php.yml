@@ -44,7 +44,7 @@ jobs:
       # composer dump-autoload
       - name: Dump autoload
         id: composer-dump-autoload
-        if: steps.composer-dump-autoload.outcome == 'success'
+        if: steps.composer-install.outcome == 'success'
         run: composer dump-autoload
 
       # This step caches the Composer packages for faster execution.
