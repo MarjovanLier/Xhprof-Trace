@@ -23,7 +23,20 @@ final class Trace
      *
      * @var string
      */
-    private const PROFILES_DIR = '/var/www/html/profiles/';
+    private static string $profilesDir = '/var/www/html/profiles/';
+
+
+    /**
+     * Sets the directory where profile data files are stored.
+     *
+     * @param string $path The path to the directory.
+     *
+     * @return void
+     */
+    public static function setProfilesDir($path): void
+    {
+        self::$profilesDir = $path;
+    }
 
     /**
      * Prefixes of classes to be excluded from the report.
@@ -51,13 +64,13 @@ final class Trace
     /**
      * Disables XHProf profiling and saves the profiling data to a file.
      *
+     * @return void
      * @throws JsonException If an error occurs during JSON encoding.
      *
-     * @return void
      */
     public static function disableXhprof(): void
     {
-        $filename = self::PROFILES_DIR . time() . '.application.json';
+        $filename = self::$profilesDir . time() . '.application.json';
         file_put_contents($filename, json_encode(xhprof_disable(), JSON_THROW_ON_ERROR));
     }
 
@@ -65,9 +78,9 @@ final class Trace
     /**
      * Generates a report from the profiling data and displays it in the console.
      *
+     * @return void
      * @throws JsonException If an error occurs during JSON decoding.
      *
-     * @return void
      */
     public static function displayReportCLI(): void
     {
@@ -96,7 +109,7 @@ final class Trace
      */
     private static function getAllProfileFiles(): array
     {
-        $files = glob(self::PROFILES_DIR . '*.json', GLOB_NOSORT);
+        $files = glob(self::$profilesDir . '*.json', GLOB_NOSORT);
 
         return is_array($files) ? $files : [];
     }
