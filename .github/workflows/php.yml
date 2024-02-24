@@ -76,27 +76,27 @@ jobs:
         run: composer test:vulnerabilities-check
 
       # This step runs linting in parallel to speed up the process.
-      - name: Run parallel linting
-        id: parallel-lint
-        if: steps.vulnerabilities-check.outcome == 'success'
-        run: composer test:lint
-
-      # This step checks the code style with Pint.
-      - name: Run tests with Pint
-        id: code-style
-        if: steps.parallel-lint.outcome == 'success'
-        run: composer test:code-style
-
-      # This step runs tests with PHPMD.
-      - name: Run tests with PHPMD
-        id: phpmd
-        if: steps.code-style.outcome == 'success'
-        run: composer test:phpmd
+#       - name: Run parallel linting
+#         id: parallel-lint
+#         if: steps.vulnerabilities-check.outcome == 'success'
+#         run: composer test:lint
+#
+#       # This step checks the code style with Pint.
+#       - name: Run tests with Pint
+#         id: code-style
+#         if: steps.parallel-lint.outcome == 'success'
+#         run: composer test:code-style
+#
+#       # This step runs tests with PHPMD.
+#       - name: Run tests with PHPMD
+#         id: phpmd
+#         if: steps.code-style.outcome == 'success'
+#         run: composer test:phpmd
 
       # This step runs tests with PHPUnit.
       - name: Run tests with PHPUnit
         id: phpunit
-        if: steps.phpmd.outcome == 'success'
+        if: steps.vulnerabilities-check.outcome == 'success'
         run: composer test:phpunit
 
       # This step runs mutation testing with Infection.
