@@ -19,7 +19,7 @@ final class IsExcludedClassTest extends TestCase
     /**
      * @var string[]
      */
-    private const  EXCLUDED_PREFIXES = [
+    private const EXCLUDED_PREFIXES = [
         'Zend_',
         'Composer\\',
         'PHPStan\\',
@@ -28,7 +28,7 @@ final class IsExcludedClassTest extends TestCase
     /**
      * @var string[]
      */
-    private const  NON_EXCLUDED_FUNCTION_NAMES = [
+    private const NON_EXCLUDED_FUNCTION_NAMES = [
         'Allowed_SomeFunctionName',
         'Permitted_AnotherFunctionName',
     ];
