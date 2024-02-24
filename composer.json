@@ -38,7 +38,8 @@
       "phpstan/extension-installer": true
     }
   },
-  "minimum-stability": "stable",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "require": {
     "php": "^7.4|^8.0|^8.1|^8.2",
     "symfony/console": "^v5|^v6|^v7"
