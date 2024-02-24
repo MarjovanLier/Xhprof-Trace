@@ -9,35 +9,11 @@ use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
 /**
- * Class Trace
- *
  * This class provides methods for enabling and disabling XHProf, a hierarchical profiler for PHP.
  * It also provides methods for generating and displaying a report of the profiling data.
- *
- * @package MarjovanLier\XhprofTrace
  */
 final class Trace
 {
-    /**
-     * Directory where profile data files are stored.
-     *
-     * @var string
-     */
-    private static string $profilesDir = '/var/www/html/profiles/';
-
-
-    /**
-     * Sets the directory where profile data files are stored.
-     *
-     * @param string $path The path to the directory.
-     *
-     * @return void
-     */
-    public static function setProfilesDir($path): void
-    {
-        self::$profilesDir = $path;
-    }
-
     /**
      * Prefixes of classes to be excluded from the report.
      *
@@ -49,11 +25,25 @@ final class Trace
         'PHPStan\\',
     ];
 
+    /**
+     * Directory where profile data files are stored.
+     */
+    private static string $profilesDir = '/var/www/html/profiles/';
+
+
+    /**
+     * Sets the directory where profile data files are stored.
+     *
+     * @param string $path The path to the directory.
+     */
+    public static function setProfilesDir(string $path): void
+    {
+        self::$profilesDir = $path;
+    }
+
 
     /**
      * Enables XHProf profiling.
-     *
-     * @return void
      */
     public static function enableXhprof(): void
     {
@@ -64,9 +54,7 @@ final class Trace
     /**
      * Disables XHProf profiling and saves the profiling data to a file.
      *
-     * @return void
      * @throws JsonException If an error occurs during JSON encoding.
-     *
      */
     public static function disableXhprof(): void
     {
@@ -78,9 +66,7 @@ final class Trace
     /**
      * Generates a report from the profiling data and displays it in the console.
      *
-     * @return void
      * @throws JsonException If an error occurs during JSON decoding.
-     *
      */
     public static function displayReportCLI(): void
     {
