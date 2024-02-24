@@ -9,17 +9,14 @@ use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
 /**
- * @phan-file-suppress PhanUndeclaredConstant
- * @phan-file-suppress PhanUndeclaredFunction
+ * This class provides methods for enabling and disabling XHProf, a hierarchical profiler for PHP.
+ * It also provides methods for generating and displaying a report of the profiling data.
  */
 final class Trace
 {
     /**
-     * @var string
-     */
-    private const PROFILES_DIR = '/var/www/html/profiles/';
-
-    /**
+     * Prefixes of classes to be excluded from the report.
+     *
      * @var string[]
      */
     private const EXCLUDED_PREFIXES = [
@@ -28,9 +25,25 @@ final class Trace
         'PHPStan\\',
     ];
 
+    /**
+     * Directory where profile data files are stored.
+     */
+    private static string $profilesDir = '/var/www/html/profiles/';
+
 
     /**
-     * @noinspection PhpUnused
+     * Sets the directory where profile data files are stored.
+     *
+     * @param string $path The path to the directory.
+     */
+    public static function setProfilesDir(string $path): void
+    {
+        self::$profilesDir = $path;
+    }
+
+
+    /**
+     * Enables XHProf profiling.
      */
     public static function enableXhprof(): void
     {
@@ -39,21 +52,21 @@ final class Trace
 
 
     /**
-     * @throws JsonException
+     * Disables XHProf profiling and saves the profiling data to a file.
      *
-     * @noinspection PhpUnused
+     * @throws JsonException If an error occurs during JSON encoding.
      */
     public static function disableXhprof(): void
     {
-        $filename = self::PROFILES_DIR . time() . '.application.json';
+        $filename = self::$profilesDir . time() . '.application.json';
         file_put_contents($filename, json_encode(xhprof_disable(), JSON_THROW_ON_ERROR));
     }
 
 
     /**
-     * @throws JsonException
+     * Generates a report from the profiling data and displays it in the console.
      *
-     * @noinspection PhpUnused
+     * @throws JsonException If an error occurs during JSON decoding.
      */
     public static function displayReportCLI(): void
     {
@@ -82,13 +95,15 @@ final class Trace
      */
     private static function getAllProfileFiles(): array
     {
-        $files = glob(self::PROFILES_DIR . '*.json', GLOB_NOSORT);
+        $files = glob(self::$profilesDir . '*.json', GLOB_NOSORT);
 
         return is_array($files) ? $files : [];
     }
 
 
     /**
+     * Aggregates data from multiple profiling data files.
+     *
      * @param array<int, string> $files
      *
      * @return array<string, array{score: int, count: int}>
@@ -122,6 +137,8 @@ final class Trace
 
 
     /**
+     * Generates a report from a single profiling data file.
+     *
      * @return array<string, int>
      *
      * @throws JsonException
@@ -147,6 +164,8 @@ final class Trace
 
 
     /**
+     * Processes raw profiling data for report generation.
+     *
      * @param array<string, array{ct: int, wt: int, cpu: int, mu: int, pmu: int, name: string}> $data
      *
      * @return array<string, int>
@@ -182,6 +201,13 @@ final class Trace
     }
 
 
+    /**
+     * Checks if a class should be excluded from the report based on its prefix.
+     *
+     * @param string $functionName Name of the function.
+     *
+     * @return bool Whether the class should be excluded.
+     */
     private static function isExcludedClass(string $functionName): bool
     {
         foreach (self::EXCLUDED_PREFIXES as $excludedPrefix) {
