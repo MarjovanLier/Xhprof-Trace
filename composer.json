@@ -46,6 +46,8 @@
   },
   "require-dev": {
     "enlightn/security-checker": "^v1|^v2",
+    "php-parallel-lint/php-console-highlighter": "^1",
+    "php-parallel-lint/php-parallel-lint": "^1",
     "phpunit/php-code-coverage": "^10|^11",
     "phpunit/phpunit": "^10|^11"
   },
@@ -55,10 +57,12 @@
       "php -d memory_limit=-1 ./vendor/bin/security-checker security:check",
       "composer outdated -D"
     ],
+    "test:lint": "parallel-lint --exclude vendor --show-deprecated .",
     "test:phpunit": "phpunit --version && phpunit --no-coverage --no-logging",
     "test:vulnerabilities-check": "php -d memory_limit=-1 ./vendor/bin/security-checker security:check"
   },
   "scripts-descriptions": {
+    "test:lint": "Search for syntax errors and problematic patterns.",
     "test:phpunit": "Execute PHPUnit tests to verify code functionality.",
     "test:vulnerabilities-check": "Scan dependencies for known security vulnerabilities."
   }
