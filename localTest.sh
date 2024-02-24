@@ -9,7 +9,7 @@ docker build -t php-xprof-trace-composer-83 -f docker/Dockerfile83 .
 
 mkdir -p "$HOME"/.composer/docker-cache
 
-for version in 80 81 82 83; do
+for version in 81 82 83; do
   DOCKER_CMD="docker run -it --rm -v $(pwd):/var/www -v $HOME/.composer/docker-cache:/root/.composer php-xprof-trace-composer-$version"
   rm -f composer.lock && \
   $DOCKER_CMD composer --version && \
