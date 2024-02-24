@@ -23,7 +23,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "MarjovanLier\\XhprofTrace\\Tests\\": "tests"
+      "MarjovanLier\\XhprofTrace\\Tests\\Unit\\": "tests"
     }
   },
   "config": {
@@ -41,7 +41,7 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "require": {
-    "php": "^8.0|^8.1|^8.2",
+    "php": "^8.1|^8.2|^8.3",
     "symfony/console": "^v5|^v6|^v7"
   },
   "require-dev": {

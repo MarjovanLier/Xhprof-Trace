@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-versions: ["8.0", "8.1", "8.2", "8.3"]
+        php-versions: ["8.1", "8.2", "8.3"]
     steps:
       # This step checks out a copy of your repository.
       - name: Checkout code
@@ -27,7 +27,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-versions }}
-          extensions: mbstring, xml, zip, pdo_mysql
+          extensions: zip
 
       # This step validates the composer.json and composer.lock files.
       - name: Validate composer.json and composer.lock
