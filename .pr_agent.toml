@@ -18,7 +18,7 @@ maximal_review_effort = 5
 summarize = true
 
 [pr_update_changelog]
-push_changelog_changes=true
+push_changelog_changes=false
 
 [github_action_config]
 auto_review = true
