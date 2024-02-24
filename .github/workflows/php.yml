@@ -40,11 +40,17 @@ jobs:
         id: composer-install
         if: steps.composer-validate.outcome == 'success'
         run: composer install --prefer-dist --no-progress --no-interaction
+        
+      # composer dump-autoload
+      - name: Dump autoload
+        id: composer-dump-autoload
+        if: steps.composer-dump-autoload.outcome == 'success'
+        run: composer dump-autoload
 
       # This step caches the Composer packages for faster execution.
       - name: Cache Composer packages
         id: composer-cache
-        if: steps.composer-install.outcome =='success'
+        if: steps.composer-dump-autoload.outcome == 'success'
         uses: actions/cache@v3
         with:
           path: vendor
@@ -72,13 +78,13 @@ jobs:
       # This step checks for vulnerabilities in the project dependencies.
       - name: Check for vulnerabilities
         id: vulnerabilities-check
-        if: steps.composer-install.outcome == 'success'
+        if: steps.composer-dump-autoload.outcome == 'success'
         run: composer test:vulnerabilities-check
 
       # This step runs tests with PHPUnit.
       - name: Run tests with PHPUnit
         id: phpunit
-        if: steps.composer-install.outcome =='success'
+        if: steps.composer-dump-autoload.outcome =='success'
         run: composer test:phpunit
 
   Release:
