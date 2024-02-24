@@ -1,0 +1,55 @@
+{
+  "name": "marjovanlier/xhprof-trace",
+  "description": "",
+  "keywords": [
+    "Marjo van Lier",
+    "String Manipulation"
+  ],
+  "homepage": "https://github.com/marjovanlier/xhprof-trace",
+  "license": "MIT",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Marjo Wenzel van Lier",
+      "email": "marjo.vanlier@gmail.com",
+      "role": "Developer"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "MarjovanLier\\XhprofTrace\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "MarjovanLier\\XhprofTrace\\Tests\\": "tests"
+    }
+  },
+  "config": {
+    "preferred-install": {
+      "*": "dist"
+    },
+    "optimize-autoloader": true,
+    "classmap-authoritative": true,
+    "sort-packages": true,
+    "allow-plugins": {
+      "infection/extension-installer": true,
+      "phpstan/extension-installer": true
+    }
+  },
+  "minimum-stability": "stable",
+  "require": {
+    "php": "^7.4",
+    "symfony/console": "^v7"
+  },
+  "require-dev": {
+    "enlightn/security-checker": ">=2.0"
+  },
+  "scripts": {
+    "post-update-cmd": [
+      "composer validate --strict",
+      "php -d memory_limit=-1 ./vendor/bin/security-checker security:check",
+      "composer outdated -D"
+    ]
+  }
+}
