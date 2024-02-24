@@ -1,0 +1,45 @@
+name: PHP CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+    test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-versions: ['7.4', '8.0', '8.1', '8.2', '8.3']
+    steps:
+      # This step checks out a copy of your repository.
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+        id: checkout
+
+      # This step sets up PHP environment for the job.
+      - name: Setup PHP
+        id: setup-php
+        if: steps.checkout.outcome == 'success'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: mbstring, xml, zip, pdo_mysql
+
+    release:
+      needs: test
+      runs-on: ubuntu-latest
+      if: success()
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v2
+
+        - name: Create Release
+          uses: marvinpinto/action-automatic-releases@latest
+          with:
+            repo_token: ${{ secrets.GITHUB_TOKEN }}
+            prerelease: false
+            files: |
+              src/**
