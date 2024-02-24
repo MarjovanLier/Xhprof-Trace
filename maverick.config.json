@@ -1,0 +1,8 @@
+{
+  "supported_file_extensions": ["php"],
+  "ignored_directories": ["vendor"],
+  "auto_review_all_prs": true,
+  "blacklisted_branches": ["main"],
+  "supported_pr_creators": ["MarjovanLier"],
+  "blacklisted_pr_title_regexes": ["\\[bot\\]"]
+}
