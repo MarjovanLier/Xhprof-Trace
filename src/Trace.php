@@ -35,6 +35,8 @@ final class Trace
      * Sets the directory where profile data files are stored.
      *
      * @param string $path The path to the directory.
+     *
+     * @noinspection PhpUnused
      */
     public static function setProfilesDir(string $path): void
     {
@@ -44,6 +46,8 @@ final class Trace
 
     /**
      * Enables XHProf profiling.
+     *
+     * @noinspection PhpUnused
      */
     public static function enableXhprof(): void
     {
@@ -55,6 +59,8 @@ final class Trace
      * Disables XHProf profiling and saves the profiling data to a file.
      *
      * @throws JsonException If an error occurs during JSON encoding.
+     *
+     * @noinspection PhpUnused
      */
     public static function disableXhprof(): void
     {
@@ -67,6 +73,8 @@ final class Trace
      * Generates a report from the profiling data and displays it in the console.
      *
      * @throws JsonException If an error occurs during JSON decoding.
+     *
+     * @noinspection PhpUnused
      */
     public static function displayReportCLI(): void
     {
