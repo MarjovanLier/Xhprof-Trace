@@ -69,6 +69,12 @@ jobs:
         if: steps.install-osv-scanner.outcome == 'success'
         run: osv-scanner scan --no-ignore composer.lock
 
+      # This step checks for vulnerabilities in the project dependencies.
+      - name: Check for vulnerabilities
+        id: vulnerabilities-check
+        if: steps.composer-install.outcome == 'success'
+        run: composer test:vulnerabilities-check
+
   Release:
     needs: test
     runs-on: ubuntu-latest

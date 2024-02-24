@@ -51,6 +51,10 @@
       "composer validate --strict",
       "php -d memory_limit=-1 ./vendor/bin/security-checker security:check",
       "composer outdated -D"
-    ]
+    ],
+    "test:vulnerabilities-check": "php -d memory_limit=-1 ./vendor/bin/security-checker security:check"
+  },
+  "scripts-descriptions": {
+    "test:vulnerabilities-check": "Scan dependencies for known security vulnerabilities."
   }
 }
