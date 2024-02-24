@@ -55,9 +55,11 @@
       "php -d memory_limit=-1 ./vendor/bin/security-checker security:check",
       "composer outdated -D"
     ],
+    "test:phpunit": "phpunit --no-coverage --no-logging",
     "test:vulnerabilities-check": "php -d memory_limit=-1 ./vendor/bin/security-checker security:check"
   },
   "scripts-descriptions": {
+    "test:phpunit": "Execute PHPUnit tests to verify code functionality.",
     "test:vulnerabilities-check": "Scan dependencies for known security vulnerabilities."
   }
 }

@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace tests;
+namespace tests\Unit;
 
 use MarjovanLier\XhprofTrace\Trace;
-
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use ReflectionException;
@@ -40,7 +39,6 @@ final class IsExcludedClassTest extends TestCase
     private ReflectionClass $reflectionClass;
 
 
-    #[Override]
     protected function setUp(): void
     {
         parent::setUp();

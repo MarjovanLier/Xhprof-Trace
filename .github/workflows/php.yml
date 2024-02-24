@@ -75,6 +75,12 @@ jobs:
         if: steps.composer-install.outcome == 'success'
         run: composer test:vulnerabilities-check
 
+      # This step runs tests with PHPUnit.
+      - name: Run tests with PHPUnit
+        id: phpunit
+        if: steps.composer-install.outcome =='success'
+        run: composer test:phpunit
+
   Release:
     needs: test
     runs-on: ubuntu-latest
