@@ -14,6 +14,7 @@ for version in 81 82 83; do
   rm -f composer.lock && \
   $DOCKER_CMD composer --version && \
   $DOCKER_CMD composer install && \
+  $DOCKER_CMD composer require ext-xhprof:"*" && \
   $DOCKER_CMD composer test:vulnerabilities-check && \
   $DOCKER_CMD composer test:lint && \
   $DOCKER_CMD composer test:phpunit

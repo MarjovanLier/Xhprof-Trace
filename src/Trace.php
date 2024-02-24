@@ -9,17 +9,25 @@ use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
 /**
- * @phan-file-suppress PhanUndeclaredConstant
- * @phan-file-suppress PhanUndeclaredFunction
+ * Class Trace
+ *
+ * This class provides methods for enabling and disabling XHProf, a hierarchical profiler for PHP.
+ * It also provides methods for generating and displaying a report of the profiling data.
+ *
+ * @package MarjovanLier\XhprofTrace
  */
 final class Trace
 {
     /**
+     * Directory where profile data files are stored.
+     *
      * @var string
      */
     private const PROFILES_DIR = '/var/www/html/profiles/';
 
     /**
+     * Prefixes of classes to be excluded from the report.
+     *
      * @var string[]
      */
     private const EXCLUDED_PREFIXES = [
@@ -30,7 +38,9 @@ final class Trace
 
 
     /**
-     * @noinspection PhpUnused
+     * Enables XHProf profiling.
+     *
+     * @return void
      */
     public static function enableXhprof(): void
     {
@@ -39,9 +49,11 @@ final class Trace
 
 
     /**
-     * @throws JsonException
+     * Disables XHProf profiling and saves the profiling data to a file.
      *
-     * @noinspection PhpUnused
+     * @throws JsonException If an error occurs during JSON encoding.
+     *
+     * @return void
      */
     public static function disableXhprof(): void
     {
@@ -51,9 +63,11 @@ final class Trace
 
 
     /**
-     * @throws JsonException
+     * Generates a report from the profiling data and displays it in the console.
      *
-     * @noinspection PhpUnused
+     * @throws JsonException If an error occurs during JSON decoding.
+     *
+     * @return void
      */
     public static function displayReportCLI(): void
     {
@@ -89,6 +103,8 @@ final class Trace
 
 
     /**
+     * Aggregates data from multiple profiling data files.
+     *
      * @param array<int, string> $files
      *
      * @return array<string, array{score: int, count: int}>
@@ -122,6 +138,8 @@ final class Trace
 
 
     /**
+     * Generates a report from a single profiling data file.
+     *
      * @return array<string, int>
      *
      * @throws JsonException
@@ -147,6 +165,8 @@ final class Trace
 
 
     /**
+     * Processes raw profiling data for report generation.
+     *
      * @param array<string, array{ct: int, wt: int, cpu: int, mu: int, pmu: int, name: string}> $data
      *
      * @return array<string, int>
@@ -182,6 +202,13 @@ final class Trace
     }
 
 
+    /**
+     * Checks if a class should be excluded from the report based on its prefix.
+     *
+     * @param string $functionName Name of the function.
+     *
+     * @return bool Whether the class should be excluded.
+     */
     private static function isExcludedClass(string $functionName): bool
     {
         foreach (self::EXCLUDED_PREFIXES as $excludedPrefix) {
