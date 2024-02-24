@@ -50,6 +50,7 @@
     "laravel/pint": "^1.14",
     "php-parallel-lint/php-console-highlighter": "^1",
     "php-parallel-lint/php-parallel-lint": "^1",
+    "phpmd/phpmd": "^2",
     "phpunit/php-code-coverage": "^10|^11",
     "phpunit/phpunit": "^10|^11"
   },
@@ -61,12 +62,14 @@
     ],
     "test:code-style": "pint --test",
     "test:lint": "parallel-lint --exclude vendor --show-deprecated .",
-    "test:phpunit": "phpunit --version && phpunit --no-coverage --no-logging",
+    "test:phpmd": "phpmd src,tests text phpmd.xml",
+    "test:phpunit": "phpunit --no-coverage --no-logging",
     "test:vulnerabilities-check": "php -d memory_limit=-1 ./vendor/bin/security-checker security:check"
   },
   "scripts-descriptions": {
     "test:code-style": "Check code for stylistic consistency.",
     "test:lint": "Search for syntax errors and problematic patterns.",
+    "test:phpmd": "Detect bugs and suboptimal code with PHP Mess Detector.",
     "test:phpunit": "Execute PHPUnit tests to verify code functionality.",
     "test:vulnerabilities-check": "Scan dependencies for known security vulnerabilities."
   }

@@ -16,6 +16,8 @@ for version in 81 82 83; do
   $DOCKER_CMD composer install && \
   $DOCKER_CMD composer test:vulnerabilities-check && \
   $DOCKER_CMD composer test:lint && \
+  $DOCKER_CMD composer test:code-style && \
+  $DOCKER_CMD composer test:phpmd && \
   $DOCKER_CMD composer test:phpunit
 done
 
