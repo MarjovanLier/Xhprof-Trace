@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MarjovanLier\XhprofTrace;
 
+use JsonException;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
@@ -16,24 +17,32 @@ final class Trace
     /**
      * @var string
      */
-    private const  PROFILES_DIR = '/var/www/html/profiles/';
+    private const PROFILES_DIR = '/var/www/html/profiles/';
 
     /**
      * @var string[]
      */
-    private const  EXCLUDED_PREFIXES = [
+    private const EXCLUDED_PREFIXES = [
         'Zend_',
         'Composer\\',
         'PHPStan\\',
     ];
 
 
+    /**
+     * @noinspection PhpUnused
+     */
     public static function enableXhprof(): void
     {
-        xhprof_enable(\XHPROF_FLAGS_NO_BUILTINS + \XHPROF_FLAGS_MEMORY + \XHPROF_FLAGS_CPU);
+        xhprof_enable(XHPROF_FLAGS_NO_BUILTINS + XHPROF_FLAGS_MEMORY + XHPROF_FLAGS_CPU);
     }
 
 
+    /**
+     * @throws JsonException
+     *
+     * @noinspection PhpUnused
+     */
     public static function disableXhprof(): void
     {
         $filename = self::PROFILES_DIR . time() . '.application.json';
@@ -43,6 +52,8 @@ final class Trace
 
     /**
      * @throws JsonException
+     *
+     * @noinspection PhpUnused
      */
     public static function displayReportCLI(): void
     {
@@ -117,11 +128,11 @@ final class Trace
      */
     private static function generateReport(string $filename): array
     {
-        if (!\is_file($filename)) {
+        if (!is_file($filename)) {
             return [];
         }
 
-        $fileContents = \file_get_contents($filename);
+        $fileContents = file_get_contents($filename);
         if ($fileContents === false) {
             return [];
         }
@@ -145,9 +156,9 @@ final class Trace
         // This method is a refactored version of the original processing code to address cognitive complexity.
         $filteredData = [];
         foreach ($data as $key => $values) {
-            $parts = \explode('==>', $key);
+            $parts = explode('==>', $key);
 
-            if (\count($parts) !== 2) {
+            if (count($parts) !== 2) {
                 continue;
             }
 
@@ -165,7 +176,7 @@ final class Trace
         }
 
         $combinedRankings = self::computeCombinedRankings($filteredData);
-        \asort($combinedRankings);
+        asort($combinedRankings);
 
         return $combinedRankings;
     }
@@ -193,10 +204,10 @@ final class Trace
      * importance of frequently called functions.
      *
      * Metrics used for ranking:
-     * 1. `wt`: Wall time - Total time (in microseconds) taken for both CPU and IO operations.
-     * 2. `cpu`: CPU time - Time (in microseconds) the CPU spent executing the function.
-     * 3. `mu`: Memory usage - Amount of memory (in bytes) used by the function.
-     * 4. `pmu`: Peak memory usage - Peak amount of memory (in bytes) used by the function.
+     * 1. `wt`: Wall time – Total time (in microseconds) taken for both CPU and IO operations.
+     * 2. `cpu`: CPU time – Time (in microseconds) the CPU spent executing the function.
+     * 3. `mu`: Memory usage – Amount of memory (in bytes) used by the function.
+     * 4. `pmu`: Peak memory usage – Peak amount of memory (in bytes) used by the function.
      *
      * The call count `ct` is used as a multiplier to adjust the ranking based on the frequency
      * of function calls.
@@ -213,7 +224,7 @@ final class Trace
         $rankingsByPeakMemory = self::rankByMetric($filteredData, 'pmu');
 
         $combinedRankings = [];
-        $totalFunctions = \count($filteredData);
+        $totalFunctions = count($filteredData);
 
         foreach ($filteredData as $item) {
             $name = $item['name'];
