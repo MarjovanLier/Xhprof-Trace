@@ -3,7 +3,8 @@
   "description": "",
   "keywords": [
     "Marjo van Lier",
-    "String Manipulation"
+    "xhprof",
+    "trace"
   ],
   "homepage": "https://github.com/marjovanlier/xhprof-trace",
   "license": "MIT",
