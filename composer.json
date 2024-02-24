@@ -41,7 +41,7 @@
   "minimum-stability": "stable",
   "require": {
     "php": "^7.4",
-    "symfony/console": "^v7"
+    "symfony/console": "^v6|^v7"
   },
   "require-dev": {
     "enlightn/security-checker": ">=2.0"
