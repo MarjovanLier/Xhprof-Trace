@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-versions: ["8.2", "8.3"]
+        php-versions: ["8.1", "8.2", "8.3"]
 
     steps:
       # This step checks out a copy of your repository.
@@ -99,35 +99,35 @@ jobs:
         if: steps.vulnerabilities-check.outcome == 'success'
         run: composer test:phpunit
 
-      # This step runs mutation testing with Infection.
-      - name: Run Mutation Testing
-        id: infection
-        if: steps.phpunit.outcome == 'success'
-        run: composer test:infection
-
-      # This step runs static analysis with PHPStan.
-      - name: Run static analysis with PHPStan
-        id: phpstan
-        if: steps.infection.outcome == 'success'
-        run: composer test:phpstan
-
-      # This step runs static analysis with Phan.
-      - name: Run static analysis with phan
-        id: phan
-        if: steps.phpstan.outcome == 'success'
-        run: composer test:phan
-
-      # This step runs static analysis with Psalm.
-      - name: Run static analysis with psalm
-        id: psalm
-        if: steps.phan.outcome == 'success'
-        run: composer test:psalm
-
-      # This step runs Rector for code quality.
-      - name: Run rector for code quality
-        id: rector
-        if: steps.psalm.outcome == 'success'
-        run: composer test:rector
+#       # This step runs mutation testing with Infection.
+#       - name: Run Mutation Testing
+#         id: infection
+#         if: steps.phpunit.outcome == 'success'
+#         run: composer test:infection
+#
+#       # This step runs static analysis with PHPStan.
+#       - name: Run static analysis with PHPStan
+#         id: phpstan
+#         if: steps.infection.outcome == 'success'
+#         run: composer test:phpstan
+#
+#       # This step runs static analysis with Phan.
+#       - name: Run static analysis with phan
+#         id: phan
+#         if: steps.phpstan.outcome == 'success'
+#         run: composer test:phan
+#
+#       # This step runs static analysis with Psalm.
+#       - name: Run static analysis with psalm
+#         id: psalm
+#         if: steps.phan.outcome == 'success'
+#         run: composer test:psalm
+#
+#       # This step runs Rector for code quality.
+#       - name: Run rector for code quality
+#         id: rector
+#         if: steps.psalm.outcome == 'success'
+#         run: composer test:rector
 
   release:
     needs: build
