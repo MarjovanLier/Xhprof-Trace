@@ -46,8 +46,8 @@
   },
   "require-dev": {
     "enlightn/security-checker": "^v1|^v2",
-    "phpunit/php-code-coverage": "^11",
-    "phpunit/phpunit": "^11"
+    "phpunit/php-code-coverage": "^9|^10|^11",
+    "phpunit/phpunit": "^9|^10|^11"
   },
   "scripts": {
     "post-update-cmd": [
