@@ -1,6 +1,6 @@
 {
   "name": "marjovanlier/xhprof-trace",
-  "description": "",
+  "description": "A library for tracing XHProf performance data in PHP applications.",
   "keywords": [
     "Marjo van Lier",
     "xhprof",
