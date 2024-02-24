@@ -39,7 +39,7 @@ jobs:
       - name: Install dependencies
         id: composer-install
         if: steps.composer-validate.outcome == 'success'
-        run: composer install --prefer-dist --no-progress --no-suggest
+        run: composer install --prefer-dist --no-progress --no-interaction
 
       # This step caches the Composer packages for faster execution.
       - name: Cache Composer packages
