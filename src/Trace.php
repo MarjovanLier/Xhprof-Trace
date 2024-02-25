@@ -319,6 +319,17 @@ final class Trace
     }
 
 
+        /**
+     * Calculate the rank based on the provided metric.
+     *
+     * @param array{ct: int, wt: int, cpu: int, mu: int, pmu: int, name: string} $item The performance metrics for the function.
+     * @param string $metric The metric to calculate the rank for.
+     * @param int $currentRank The current rank value.
+     * @param int $sameMetricValueCount The count of functions with the same metric value.
+     * @param mixed $previousMetricValue The previous metric value.
+     *
+     * @return array{int, int, mixed} The updated rank, count of functions with the same metric value, and previous metric value.
+     */
     private static function calculateRank(
         array $item,
         string $metric,
