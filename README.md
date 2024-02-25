@@ -23,12 +23,34 @@ RUN pecl install xhprof && docker-php-ext-enable xhprof
 composer require marjovanlier/xhproftrace
 ```
 
-## Usage
+## Basic Usage
 
 Here is a basic example of how to use the library:
 
 ```php
 use MarjovanLier\XhprofTrace\Trace;
+Here is a more detailed example demonstrating the use of XhprofTrace for profiling a specific function within your application:
+
+```php
+use MarjovanLier\XhprofTrace\Trace;
+
+// Start profiling
+Trace::enableXhprof();
+
+// Call the function you want to profile
+yourFunction();
+
+// Stop profiling
+Trace::disableXhprof();
+
+// Optionally, save the profiling data to a file
+Trace::saveReport('/path/to/save/report.json');
+
+// Display the profiling report in the console
+Trace::displayReportCLI();
+```
+
+This example showcases how to start and stop the profiler around a specific function call, save the profiling data, and display the report in the console.
 
 // Enable XHProf profiling
 Trace::enableXhprof();
@@ -64,6 +86,70 @@ xhprof.output_dir = "/path/to/your/directory"
 ### XHProf Extension
 
 To adjust the profiling granularity and other settings of the XHProf extension, you can modify the following settings in your `php.ini` file:
+## Advanced Examples
+
+The XhprofTrace library offers flexibility to customize your profiling needs. Below are some advanced examples showcasing its capabilities.
+
+### Filtering Profiling Data
+
+You can filter the profiling data to focus on specific parts of your application. This is useful for isolating performance issues:
+
+```php
+use MarjovanLier\XhprofTrace\Trace;
+
+Trace::enableXhprof([
+    'ignored_functions' => ['time_nanosleep', 'str_repeat']
+]);
+
+// Your application code here...
+
+Trace::disableXhprof();
+```
+
+In this example, `ignored_functions` is used to exclude specific functions from the profiling data.
+
+### Integrating with Other Tools
+
+XhprofTrace can be integrated with other tools for more comprehensive analysis. For example, integrating with a visualization tool:
+
+```php
+use MarjovanLier\XhprofTrace\Trace;
+
+Trace::enableXhprof();
+
+// Your application code here...
+
+Trace::disableXhprof();
+
+// Generate a URL to view the profiling report using an external tool
+$url = Trace::generateReportURL('https://external-tool.com/view?data=', '/path/to/report/file');
+
+echo "View the profiling report: " . $url;
+```
+
+This example demonstrates how to generate a URL for viewing the profiling report with an external visualization tool.
+
+### Customizing the Report Output
+
+You can customize the output of the profiling report to include additional information or format it differently:
+
+```php
+use MarjovanLier\XhprofTrace\Trace;
+
+Trace::enableXhprof();
+
+// Your application code here...
+
+Trace::disableXhprof();
+
+// Customize the report output
+Trace::displayReportCLI([
+    'format' => 'json',
+    'include_memory_usage' => true
+]);
+```
+
+This example shows how to customize the report output format and include memory usage information.
 
 - `xhprof.sampling_interval`: Determines the sampling interval in microseconds. A lower value increases the granularity of the profiling data but may impact performance. The default value is `100000` (100ms).
 
