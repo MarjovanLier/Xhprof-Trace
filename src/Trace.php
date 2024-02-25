@@ -142,6 +142,33 @@ final class Trace
 
         return $results;
     }
+     *
+     * @throws JsonException
+     *
+     * @psalm-return array<string, array{count: int, score: int}>
+     */
+    private static function getAggregatedDataFromFiles(array $files): array
+    {
+        $aggregatedScores = [];
+        $functionOccurrences = [];
+
+        foreach ($files as $file) {
+            foreach (self::generateReport($file) as $name => $score) {
+                $aggregatedScores[$name] = (($aggregatedScores[$name] ?? 0) + $score);
+                $functionOccurrences[$name] = (($functionOccurrences[$name] ?? 0) + 1);
+            }
+        }
+
+        $results = [];
+        foreach ($aggregatedScores as $name => $score) {
+            $results[$name] = [
+                'count' => ($functionOccurrences[$name] ?? 0),
+                'score' => (int) round($score / ($functionOccurrences[$name] ?? 1)),
+            ];
+        }
+
+        return $results;
+    }
 
 
     /**
