@@ -287,7 +287,7 @@ final class Trace
      *
      * @param array<int, array{ct: int, wt: int, cpu: int, mu: int, pmu: int, name: string}> $data
      *
-     * @return array<string, int> Associative array where keys are function names and values are their ranks.
+     * @return array<string, int> An associative array where keys are function names and values are their ranks.
      *
      * @psalm-return array<string, int<1, max>>
      */
@@ -307,18 +307,17 @@ final class Trace
 
         foreach ($data as $item) {
             // Abstracted the calculation of ranks into a separate function
-            [$currentRank, $sameMetricValueCount, $previousMetricValue] = self::calculateRank(
-                $item,
-                $metric,
+            [
                 $currentRank,
                 $sameMetricValueCount,
-                $previousMetricValue
-            );
+                $previousMetricValue,
+            ] = self::calculateRank($item, $metric, $currentRank, $sameMetricValueCount, $previousMetricValue);
             $rankings[$item['name']] = $currentRank;
         }
 
         return $rankings;
     }
+
 
     private static function calculateRank(
         array $item,
@@ -328,13 +327,18 @@ final class Trace
         $previousMetricValue
     ): array {
         if ($previousMetricValue === null || $item[$metric] === $previousMetricValue) {
-            $sameMetricValueCount++;
+            ++$sameMetricValueCount;
         } else {
             $currentRank += $sameMetricValueCount;
             $sameMetricValueCount = 1;
         }
+
         $previousMetricValue = $item[$metric];
 
-        return [$currentRank, $sameMetricValueCount, $previousMetricValue];
+        return [
+            $currentRank,
+            $sameMetricValueCount,
+            $previousMetricValue,
+        ];
     }
 }
