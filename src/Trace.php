@@ -322,20 +322,13 @@ final class Trace
     /**
      * Calculate the rank based on the provided metric.
      *
-     * @param array{
-     *     ct: int,
-     *     wt: int,
-     *     cpu: int,
-     *     mu: int,
-     *     pmu: int,
-     *     name: string
-     * } $item The performance metrics for the function.
-     * @param string $metric The metric to calculate the rank for.
-     * @param int $currentRank The current rank value.
-     * @param int $sameMetricValueCount The count of functions with the same metric value.
-     * @param mixed $previousMetricValue The previous metric value.
+     * @param array $item The performance metrics for the function, including 'ct', 'wt', 'cpu', 'mu', 'pmu', and 'name'.
+     * @param string $metric The metric to calculate the rank for ('ct', 'wt', 'cpu', 'mu', or 'pmu').
+     * @param int $currentRank The current rank value, starting at 1 for the highest rank.
+     * @param int $sameMetricValueCount The count of consecutive functions with the same metric value.
+     * @param mixed $previousMetricValue The metric value of the previous function in the ranking, or null for the first function.
      *
-     * @return array{int, int, mixed} The updated rank, count of functions with the same metric value, and previous
+     * @return array{int, int, mixed} An array containing the updated rank, the updated count of consecutive functions with the same metric value, and the metric value of the current function.
      *     metric value.
      */
     private static function calculateRank(
@@ -345,13 +338,11 @@ final class Trace
         int $sameMetricValueCount,
         $previousMetricValue
     ): array {
-        if ($previousMetricValue === null || $item[$metric] === $previousMetricValue) {
-            $sameMetricValueCount++;
-            return [$currentRank, $sameMetricValueCount, $item[$metric]];
+        if ($previousMetricValue !== null && $item[$metric] !== $previousMetricValue) {
+            $currentRank += $sameMetricValueCount;
+            $sameMetricValueCount = 0;
         }
-
-        $currentRank += $sameMetricValueCount;
-        $sameMetricValueCount = 1;
+        $sameMetricValueCount++;
         return [$currentRank, $sameMetricValueCount, $item[$metric]];
     }
 }
