@@ -327,18 +327,12 @@ final class Trace
         $previousMetricValue
     ): array {
         if ($previousMetricValue === null || $item[$metric] === $previousMetricValue) {
-            ++$sameMetricValueCount;
-        } else {
-            $currentRank += $sameMetricValueCount;
-            $sameMetricValueCount = 1;
+            $sameMetricValueCount++;
+            return [$currentRank, $sameMetricValueCount, $item[$metric]];
         }
 
-        $previousMetricValue = $item[$metric];
-
-        return [
-            $currentRank,
-            $sameMetricValueCount,
-            $previousMetricValue,
-        ];
+        $currentRank += $sameMetricValueCount;
+        $sameMetricValueCount = 1;
+        return [$currentRank, $sameMetricValueCount, $item[$metric]];
     }
 }
