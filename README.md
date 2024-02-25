@@ -49,6 +49,34 @@ The library provides the following static methods:
 - `enableXhprof()`: Enables XHProf profiling.
 - `disableXhprof()`: Disables XHProf profiling and saves the profiling data to a file.
 - `displayReportCLI()`: Generates a report from the profiling data and displays it in the console.
+## Configuration
+
+After installing the XhprofTrace library and the XHProf extension, you need to configure them to ensure they work correctly in your environment.
+
+### XhprofTrace Library
+
+The XhprofTrace library requires minimal configuration. However, you should ensure that the `xhprof.output_dir` is set in your `php.ini` file. This directory is where the XHProf profiling data will be saved. For example:
+
+```ini
+xhprof.output_dir = "/path/to/your/directory"
+```
+
+### XHProf Extension
+
+To adjust the profiling granularity and other settings of the XHProf extension, you can modify the following settings in your `php.ini` file:
+
+- `xhprof.sampling_interval`: Determines the sampling interval in microseconds. A lower value increases the granularity of the profiling data but may impact performance. The default value is `100000` (100ms).
+
+- `xhprof.sampling_depth`: Controls the maximum stack depth that will be profiled. Increasing this value allows deeper call stacks to be profiled at the cost of higher overhead.
+
+Example configuration:
+
+```ini
+xhprof.sampling_interval = 50000
+xhprof.sampling_depth = 20
+```
+
+Adjust these settings based on your use case and the performance impact you are willing to accept.
 
 ## License
 ### Linux
