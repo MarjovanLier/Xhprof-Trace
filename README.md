@@ -199,3 +199,31 @@ brew install php@{your-php-version}-xhprof
 Replace `{your-php-version}` with your PHP version without dots (e.g., `81` for PHP 8.1).
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+## Troubleshooting & FAQ
+
+### Common Issues
+
+#### Installation Problems
+- **Issue**: XHProf extension not found after installation.
+  - **Solution**: Ensure the `extension=xhprof.so` (Linux/macOS) or `extension=php_xhprof.dll` (Windows) line is correctly added to your `php.ini`. Restart your web server or PHP-FPM service afterwards.
+
+#### Configuration Errors
+- **Issue**: Profiling data not being generated.
+  - **Solution**: Check the `xhprof.output_dir` setting in your `php.ini` to ensure it points to a writable directory.
+
+#### Runtime Errors
+- **Issue**: Profiler causes unexpected application behavior.
+  - **Solution**: Disable the profiler to isolate the issue. If the problem persists, it may not be related to XhprofTrace.
+
+### FAQ
+
+- **How do I interpret profiling data?**
+  Profiling data provides insights into function call counts, CPU time, and memory usage. Use visualization tools like XHProf UI for a more intuitive analysis.
+
+- **How can I improve profiling performance?**
+  Increase the `xhprof.sampling_interval` to reduce the amount of data collected. Note that this will also decrease the granularity of the profiling data.
+
+- **How can I contribute to the XhprofTrace library?**
+  Contributions are welcome! Check the repository's issues for open tasks or create a pull request with your improvements.
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
