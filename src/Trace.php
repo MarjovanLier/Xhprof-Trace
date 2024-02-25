@@ -301,32 +301,40 @@ final class Trace
         usort($data, $comparisonFunction);
 
         $rankings = [];
-        $previousValue = null;
+        $previousMetricValue = null;
         $currentRank = 1;
-        $tiedCount = 0;
+        $sameMetricValueCount = 0;
 
         foreach ($data as $item) {
-            if ($previousValue === null) {
-                $rankings[$item['name']] = $currentRank;
-                $previousValue = $item[$metric];
-
-                continue;
-            }
-
-            if ($item[$metric] === $previousValue) {
-                $rankings[$item['name']] = $currentRank;
-                ++$tiedCount;
-                $previousValue = $item[$metric];
-
-                continue;
-            }
-
-            $currentRank += ($tiedCount + 1);
-            $tiedCount = 0;
+            // Abstracted the calculation of ranks into a separate function
+            [$currentRank, $sameMetricValueCount, $previousMetricValue] = self::calculateRank(
+                $item,
+                $metric,
+                $currentRank,
+                $sameMetricValueCount,
+                $previousMetricValue
+            );
             $rankings[$item['name']] = $currentRank;
-            $previousValue = $item[$metric];
         }
 
         return $rankings;
+    }
+
+    private static function calculateRank(
+        array $item,
+        string $metric,
+        int $currentRank,
+        int $sameMetricValueCount,
+        $previousMetricValue
+    ): array {
+        if ($previousMetricValue === null || $item[$metric] === $previousMetricValue) {
+            $sameMetricValueCount++;
+        } else {
+            $currentRank += $sameMetricValueCount;
+            $sameMetricValueCount = 1;
+        }
+        $previousMetricValue = $item[$metric];
+
+        return [$currentRank, $sameMetricValueCount, $previousMetricValue];
     }
 }
