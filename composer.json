@@ -52,6 +52,8 @@
     "php-parallel-lint/php-console-highlighter": "^1",
     "php-parallel-lint/php-parallel-lint": "^1",
     "phpmd/phpmd": "^2",
+    "phpstan/phpstan": "^1.10",
+    "phpstan/phpstan-phpunit": "^1.3",
     "phpunit/php-code-coverage": "^10|^11",
     "phpunit/phpunit": "^10|^11"
   },
@@ -66,12 +68,14 @@
       "@test:lint",
       "@test:code-style",
       "@test:phpmd",
-      "@test:infection"
+      "@test:infection",
+      "@test:phpstan"
     ],
     "test:code-style": "pint --test",
     "test:infection": "infection --min-msi=100 --min-covered-msi=100 --threads=4 --show-mutations --only-covered --formatter=progress",
     "test:lint": "parallel-lint --exclude vendor --show-deprecated .",
     "test:phpmd": "phpmd src,tests text phpmd.xml",
+    "test:phpstan": "php -d memory_limit=-1 ./vendor/bin/phpstan analyse --no-progress --no-interaction",
     "test:phpunit": "phpunit --no-coverage --no-logging",
     "test:vulnerabilities-check": "php -d memory_limit=-1 ./vendor/bin/security-checker security:check"
   },
@@ -80,6 +84,7 @@
     "test:infection": "Conduct mutation testing for robustness.",
     "test:lint": "Search for syntax errors and problematic patterns.",
     "test:phpmd": "Detect bugs and suboptimal code with PHP Mess Detector.",
+    "test:phpstan": "Conduct PHPStan static analysis for identifying code quality issues.",
     "test:phpunit": "Execute PHPUnit tests to verify code functionality.",
     "test:vulnerabilities-check": "Scan dependencies for known security vulnerabilities."
   }
