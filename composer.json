@@ -46,9 +46,13 @@
     "symfony/console": "^v5|^v6|^v7"
   },
   "require-dev": {
+    "ext-ast": "*",
+    "ext-pcntl": "*",
+    "ext-xdebug": "*",
     "enlightn/security-checker": "^v1|^v2",
     "infection/infection": ">=0.27.10",
     "laravel/pint": "^1.14",
+    "phan/phan": ">=5.4.3",
     "php-parallel-lint/php-console-highlighter": "^1",
     "php-parallel-lint/php-parallel-lint": "^1",
     "phpmd/phpmd": "^2",
@@ -69,11 +73,13 @@
       "@test:code-style",
       "@test:phpmd",
       "@test:infection",
-      "@test:phpstan"
+      "@test:phpstan",
+      "@test:phan"
     ],
     "test:code-style": "pint --test",
     "test:infection": "infection --min-msi=100 --min-covered-msi=100 --threads=4 --show-mutations --only-covered --formatter=progress",
     "test:lint": "parallel-lint --exclude vendor --show-deprecated .",
+    "test:phan": "phan --analyze-twice --no-progress-bar",
     "test:phpmd": "phpmd src,tests text phpmd.xml",
     "test:phpstan": "php -d memory_limit=-1 ./vendor/bin/phpstan analyse --no-progress --no-interaction",
     "test:phpunit": "phpunit --no-coverage --no-logging",
@@ -83,6 +89,7 @@
     "test:code-style": "Check code for stylistic consistency.",
     "test:infection": "Conduct mutation testing for robustness.",
     "test:lint": "Search for syntax errors and problematic patterns.",
+    "test:phan": "Perform static analysis with Phan to identify code issues.",
     "test:phpmd": "Detect bugs and suboptimal code with PHP Mess Detector.",
     "test:phpstan": "Conduct PHPStan static analysis for identifying code quality issues.",
     "test:phpunit": "Execute PHPUnit tests to verify code functionality.",
