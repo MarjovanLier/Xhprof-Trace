@@ -8,7 +8,7 @@ mkdir -p "$HOME"/.composer/docker-cache
 for version in {81..83}; do
   # Build Docker image for the current PHP version
   IMAGE_NAME="php-xprof-trace-composer-$version"
-  docker build -t $IMAGE_NAME -f docker/Dockerfile"$version" .
+  docker build -t "$IMAGE_NAME" -f "docker/Dockerfile$version" .
   if [ $? -ne 0 ]; then
     echo "Docker build failed for PHP version $version"
     exit 1
