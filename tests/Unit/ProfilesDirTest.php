@@ -9,7 +9,7 @@ use ReflectionClass;
 /**
  * @internal
  *
- * @covers \MarjovanLier\XhprofTrace\Trace::profilesDir
+ * @covers \MarjovanLier\XhprofTrace\Trace::setProfilesDir
  */
 final class ProfilesDirTest extends TestCase
 {
