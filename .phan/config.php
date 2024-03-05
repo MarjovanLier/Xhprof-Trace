@@ -199,7 +199,7 @@ return [
     //
     // To more aggressively detect dead code,
     // you may want to set `dead_code_detection_prefer_false_negative` to `false`.
-    'dead_code_detection' => true,
+    'dead_code_detection' => false,
 
     // Set to true in order to attempt to detect unused variables.
     // `dead_code_detection` will also enable unused variable detection.
