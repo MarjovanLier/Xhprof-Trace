@@ -159,11 +159,11 @@ final class Trace
 
         $filename = htmlspecialchars($filename, ENT_QUOTES, 'UTF-8');
 
-        if (!empty($filename) && is_file($filename)) {
-            $fileContents = file_get_contents($filename);
-        } else {
+        if ($filename === '' || $filename === '0' || !is_file($filename)) {
             return [];
         }
+
+        $fileContents = file_get_contents($filename);
 
         if ($fileContents === false) {
             return [];
@@ -328,7 +328,8 @@ final class Trace
      * Calculates the rank for a given metric.
      *
      * @param array{ct: int, wt: int, cpu: int, mu: int, pmu: int, name: string} $item The array containing the metrics
-     *     and name for which the rank is calculated.
+     *                                                                                 and name for which the rank is
+     *                                                                                 calculated.
      *
      * @return array{int, int, int|string}
      */
