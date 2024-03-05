@@ -320,7 +320,8 @@ final class Trace
     /**
      * Calculates the rank for a given metric.
      *
-     * @param array{ct: int, wt: int, cpu: int, mu: int, pmu: int, name: string} $item
+     * @param array{ct: int, wt: int, cpu: int, mu: int, pmu: int, name: string} $item The array containing the metrics
+     *     and name for which the rank is calculated.
      *
      * @return array{int, int, int|string}
      */
