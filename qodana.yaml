@@ -1,0 +1,47 @@
+---
+#-------------------------------------------------------------------------------#
+#               Qodana analysis is configured by qodana.yaml file               #
+#             https://www.jetbrains.com/help/qodana/qodana-yaml.html            #
+#-------------------------------------------------------------------------------#
+version: "1.0"
+
+#Specify inspection profile for code analysis
+profile:
+  name: qodana.recommended
+
+php:
+  version: 8.1 #(Applied in CI/CD pipeline)
+
+linter: jetbrains/qodana-php:latest
+include:
+  - name: PhpVulnerablePathsInspection
+  - name: VulnerableLibrariesGlobal
+  - name: PhpCoverageInspection
+  - name: PhpInconsistentReturnPointsInspection
+  - name: PhpRedundantOptionalArgumentInspection
+  - name: PhpTernaryExpressionCanBeReplacedWithConditionInspection
+  - name: PhpFullyQualifiedNameUsageInspection
+  - name: PhpUnnecessaryFullyQualifiedNameInspection
+  - name: DuplicatedCode
+  - name: PhpReturnDocTypeMismatchInspection
+  - name: PhpMissingParamTypeInspection
+  - name: PhpMissingFieldTypeInspection
+  - name: PhpMissingReturnTypeInspection
+  - name: PhpDynamicFieldDeclarationInspection
+  - name: PhpUnusedAliasInspection
+  - name: PhpUnusedLocalVariableInspection
+plugins:
+  - id: com.kalessil.phpStorm.phpInspectionsEA
+
+exclude:
+  - name: All
+    paths:
+      - resources/views/welcome.blade.php
+      - storage
+      - storage/
+      - storage/*
+      - storage/**
+      - vendor
+      - vendor/
+      - vendor/*
+      - vendor/**
