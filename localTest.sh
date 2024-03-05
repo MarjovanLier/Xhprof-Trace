@@ -23,8 +23,7 @@ for version in {81..83}; do
     rm -f composer.lock && \
     $DOCKER_CMD composer install && \
     $DOCKER_CMD composer update --with-all-dependencies && \
-    $DOCKER_CMD composer require --dev --with-all-dependencies "phpstan/phpstan":"^1.10"  && \
-    $DOCKER_CMD composer require --dev --with-all-dependencies "phpstan/phpstan-phpunit":"^1.3"
+    $DOCKER_CMD composer require --dev --with-all-dependencies "phan/phan":">=5.4.3"
 
     # Check for errors immediately after Composer commands
     if [ $? -ne 0 ]; then
