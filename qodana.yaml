@@ -36,11 +36,6 @@ plugins:
 exclude:
   - name: All
     paths:
-      - resources/views/welcome.blade.php
-      - storage
-      - storage/
-      - storage/*
-      - storage/**
       - vendor
       - vendor/
       - vendor/*
