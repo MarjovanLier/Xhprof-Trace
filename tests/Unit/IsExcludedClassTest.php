@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Unit;
+namespace Unit;
 
 use MarjovanLier\XhprofTrace\Trace;
 use PHPUnit\Framework\TestCase;

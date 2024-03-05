@@ -157,7 +157,14 @@ final class Trace
             return [];
         }
 
-        $fileContents = file_get_contents($filename);
+        $filename = htmlspecialchars($filename, ENT_QUOTES, 'UTF-8');
+
+        if (!empty($filename) && is_file($filename)) {
+            $fileContents = file_get_contents($filename);
+        } else {
+            return [];
+        }
+
         if ($fileContents === false) {
             return [];
         }
