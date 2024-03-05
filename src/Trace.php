@@ -321,10 +321,6 @@ final class Trace
      * Calculates the rank for a given metric.
      *
      * @param array{ct: int, wt: int, cpu: int, mu: int, pmu: int, name: string} $item
-     * @param string $metric
-     * @param int $currentRank
-     * @param int $sameMetricValueCount
-     * @param int|string|null $previousMetricValue
      *
      * @return array{int, int, int|string}
      */
@@ -333,15 +329,25 @@ final class Trace
         string $metric,
         int $currentRank,
         int $sameMetricValueCount,
-        int|string|null $previousMetricValue
+        null|int|string $previousMetricValue
     ): array {
         if ($previousMetricValue === null || $item[$metric] === $previousMetricValue) {
-            $sameMetricValueCount++;
-            return [$currentRank, $sameMetricValueCount, $item[$metric]];
+            ++$sameMetricValueCount;
+
+            return [
+                $currentRank,
+                $sameMetricValueCount,
+                $item[$metric],
+            ];
         }
 
         $currentRank += $sameMetricValueCount;
         $sameMetricValueCount = 1;
-        return [$currentRank, $sameMetricValueCount, $item[$metric]];
+
+        return [
+            $currentRank,
+            $sameMetricValueCount,
+            $item[$metric],
+        ];
     }
 }
