@@ -27,8 +27,11 @@ for version in {81..83}; do
 
     # Check for errors immediately after Composer commands
     if [ $? -ne 0 ]; then
-        echo "Composer install failed for PHP $version"
+        echo "Composer install failed for PHP $version. See error details above."
         exit 1
+        $DOCKER_CMD composer diagnose || true
+        echo "Dumping composer.lock for investigation:"
+        cat composer.lock || echo "No composer.lock found."
     fi
   fi
 
@@ -36,9 +39,11 @@ for version in {81..83}; do
 
   # If any of the above commands fail, the script will stop and exit with a non-zero status code.
   if [ $? -ne 0 ]; then
-    echo "Tests failed for PHP $version"
+    echo "Tests failed for PHP $version. See error details above."
     exit 1
   fi
 done
 
 echo "All tests passed successfully!"
+        echo "Dumping test logs for investigation:"
+        cat path/to/test/log.log || echo "No test log found."
