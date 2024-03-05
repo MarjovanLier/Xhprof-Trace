@@ -123,11 +123,11 @@ jobs:
         if: steps.phan.outcome == 'success'
         run: composer test:psalm
 
-#       # This step runs Rector for code quality.
-#       - name: Run rector for code quality
-#         id: rector
-#         if: steps.psalm.outcome == 'success'
-#         run: composer test:rector
+      # This step runs Rector for code quality.
+      - name: Run rector for code quality
+        id: rector
+        if: steps.psalm.outcome == 'success'
+        run: composer test:rector
 
   release:
     needs: build

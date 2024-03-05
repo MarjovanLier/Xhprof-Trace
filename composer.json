@@ -61,6 +61,7 @@
     "phpunit/php-code-coverage": "^10|^11",
     "phpunit/phpunit": "^10|^11",
     "psalm/plugin-phpunit": ">=0.18.4",
+    "rector/rector": ">=1.0.2",
     "vimeo/psalm": ">=5.22.2"
   },
   "scripts": {
@@ -77,7 +78,8 @@
       "@test:infection",
       "@test:phpstan",
       "@test:phan",
-      "@test:psalm"
+      "@test:psalm",
+      "@test:rector"
     ],
     "test:code-style": "pint --test",
     "test:infection": "infection --min-msi=100 --min-covered-msi=100 --threads=4 --show-mutations --only-covered --formatter=progress",
@@ -87,6 +89,7 @@
     "test:phpstan": "php -d memory_limit=-1 ./vendor/bin/phpstan analyse --no-progress --no-interaction",
     "test:phpunit": "phpunit --no-coverage --no-logging",
     "test:psalm": "psalm --no-cache --no-progress --show-info=false",
+    "test:rector": "rector --dry-run",
     "test:vulnerabilities-check": "php -d memory_limit=-1 ./vendor/bin/security-checker security:check"
   },
   "scripts-descriptions": {
@@ -98,6 +101,7 @@
     "test:phpstan": "Conduct PHPStan static analysis for identifying code quality issues.",
     "test:phpunit": "Execute PHPUnit tests to verify code functionality.",
     "test:psalm": "Run Psalm to find errors and improve code quality.",
+    "test:rector": "Apply automated code quality enhancements with Rector.",
     "test:vulnerabilities-check": "Scan dependencies for known security vulnerabilities."
   }
 }

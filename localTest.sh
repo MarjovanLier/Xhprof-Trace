@@ -23,8 +23,7 @@ for version in {81..83}; do
     rm -f composer.lock && \
     $DOCKER_CMD composer install && \
     $DOCKER_CMD composer update --with-all-dependencies && \
-    $DOCKER_CMD composer require --dev --with-all-dependencies "vimeo/psalm":">=5.22.2" && \
-    $DOCKER_CMD composer require --dev --with-all-dependencies "psalm/plugin-phpunit":">=0.18.4"
+    $DOCKER_CMD composer require --dev --with-all-dependencies "rector/rector":">=1.0.2"
 
     # Check for errors immediately after Composer commands
     if [ $? -ne 0 ]; then
