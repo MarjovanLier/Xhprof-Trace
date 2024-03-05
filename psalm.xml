@@ -25,5 +25,6 @@
                 <directory name="tests"/>
             </errorLevel>
         </UnusedClass>
+        <ForbiddenCode errorLevel="error"/>
     </issueHandlers>
 </psalm>
