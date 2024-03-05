@@ -99,12 +99,12 @@ jobs:
         if: steps.phpmd.outcome == 'success'
         run: composer test:phpunit
 
-#       # This step runs mutation testing with Infection.
-#       - name: Run Mutation Testing
-#         id: infection
-#         if: steps.phpunit.outcome == 'success'
-#         run: composer test:infection
-#
+      # This step runs mutation testing with Infection.
+      - name: Run Mutation Testing
+        id: infection
+        if: steps.phpunit.outcome == 'success'
+        run: composer test:infection
+
 #       # This step runs static analysis with PHPStan.
 #       - name: Run static analysis with PHPStan
 #         id: phpstan
