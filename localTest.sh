@@ -17,7 +17,6 @@ for version in {81..83}; do
   # Define Docker run command
   DOCKER_CMD="docker run -it --rm -v $(pwd):/var/www -v $HOME/.composer/docker-cache:/root/.composer $IMAGE_NAME"
   $DOCKER_CMD composer --version
-  $DOCKER_CMD composer update && exit 1
 
   # Remove existing composer.lock, display Composer version, and run Composer install and update for PHP 8.1
   if [ "$version" -eq 81 ]; then
