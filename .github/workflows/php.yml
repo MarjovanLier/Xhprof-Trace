@@ -105,11 +105,11 @@ jobs:
         if: steps.phpunit.outcome == 'success'
         run: composer test:infection
 
-#       # This step runs static analysis with PHPStan.
-#       - name: Run static analysis with PHPStan
-#         id: phpstan
-#         if: steps.infection.outcome == 'success'
-#         run: composer test:phpstan
+      # This step runs static analysis with PHPStan.
+      - name: Run static analysis with PHPStan
+        id: phpstan
+        if: steps.infection.outcome == 'success'
+        run: composer test:phpstan
 #
 #       # This step runs static analysis with Phan.
 #       - name: Run static analysis with phan

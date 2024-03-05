@@ -288,8 +288,6 @@ final class Trace
      * @param array<int, array{ct: int, wt: int, cpu: int, mu: int, pmu: int, name: string}> $data
      *
      * @return array<string, int> An associative array where keys are function names and values are their ranks.
-     *
-     * @psalm-return array<string, int<1, max>>
      */
     private static function rankByMetric(array $data, string $metric): array
     {
@@ -319,20 +317,38 @@ final class Trace
     }
 
 
+    /**
+     * Calculates the rank for a given metric.
+     *
+     * @param array{ct: int, wt: int, cpu: int, mu: int, pmu: int, name: string} $item The array containing the metrics
+     *     and name for which the rank is calculated.
+     *
+     * @return array{int, int, int|string}
+     */
     private static function calculateRank(
         array $item,
         string $metric,
         int $currentRank,
         int $sameMetricValueCount,
-        $previousMetricValue
+        null|int|string $previousMetricValue
     ): array {
         if ($previousMetricValue === null || $item[$metric] === $previousMetricValue) {
-            $sameMetricValueCount++;
-            return [$currentRank, $sameMetricValueCount, $item[$metric]];
+            ++$sameMetricValueCount;
+
+            return [
+                $currentRank,
+                $sameMetricValueCount,
+                $item[$metric],
+            ];
         }
 
         $currentRank += $sameMetricValueCount;
         $sameMetricValueCount = 1;
-        return [$currentRank, $sameMetricValueCount, $item[$metric]];
+
+        return [
+            $currentRank,
+            $sameMetricValueCount,
+            $item[$metric],
+        ];
     }
 }
