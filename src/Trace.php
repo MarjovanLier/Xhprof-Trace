@@ -36,6 +36,8 @@ final class Trace
      *
      * @param string $path The path to the directory.
      *
+     * @psalm-suppress PossiblyUnusedMethod
+     *
      * @noinspection PhpUnused
      */
     public static function setProfilesDir(string $path): void
@@ -46,6 +48,8 @@ final class Trace
 
     /**
      * Enables XHProf profiling.
+     *
+     * @psalm-suppress PossiblyUnusedMethod
      *
      * @noinspection PhpUnused
      */
@@ -60,6 +64,8 @@ final class Trace
      *
      * @throws JsonException If an error occurs during JSON encoding.
      *
+     * @psalm-suppress PossiblyUnusedMethod
+     *
      * @noinspection PhpUnused
      */
     public static function disableXhprof(): void
@@ -73,6 +79,8 @@ final class Trace
      * Generates a report from the profiling data and displays it in the console.
      *
      * @throws JsonException If an error occurs during JSON decoding.
+     *
+     * @psalm-suppress PossiblyUnusedMethod
      *
      * @noinspection PhpUnused
      */
