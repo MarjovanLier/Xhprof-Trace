@@ -66,8 +66,7 @@
       "@test:lint",
       "@test:code-style",
       "@test:phpmd",
-      "@test:infection",
-      "@test:code-style"
+      "@test:infection"
     ],
     "test:code-style": "pint --test",
     "test:infection": "infection --min-msi=100 --min-covered-msi=100 --threads=4 --show-mutations --only-covered --formatter=progress",
