@@ -13,7 +13,6 @@ use ReflectionClass;
  */
 final class ProfilesDirTest extends TestCase
 {
-
     public function testSetProfilesDir(): void
     {
         // Set a temporary directory path for testing
