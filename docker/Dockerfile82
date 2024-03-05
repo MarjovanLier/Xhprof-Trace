@@ -2,9 +2,7 @@ FROM php:8.2-cli
 
 # Install system dependencies
 RUN set -eux; apt-get update && apt-get install -y zip \
-        && pecl install ast \
-        && pecl install xdebug \
-        && pecl install xhprof \
+        && pecl install ast xdebug xhprof \
         && docker-php-ext-install pcntl \
         && docker-php-ext-enable ast xdebug xhprof \
         && apt-get clean \
