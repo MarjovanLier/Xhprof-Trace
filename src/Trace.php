@@ -166,10 +166,7 @@ final class Trace
     {
         $filename = htmlspecialchars($filename, ENT_QUOTES, 'UTF-8');
 
-        if (($filename === '' || $filename === '0' || !is_file($filename)) && !str_starts_with(
-            realpath($filename),
-            realpath(self::$profilesDir)
-        )) {
+        if (!self::isValidFilename($filename)) {
             return [];
         }
 
@@ -185,6 +182,34 @@ final class Trace
         $data = json_decode($fileContents, true, 512, JSON_THROW_ON_ERROR);
 
         return self::processDataForReport($data);
+    }
+
+
+    /**
+     * Checks if the provided filename is valid.
+     *
+     * This method checks if the provided filename is valid by performing the following checks:
+     * 1. It checks if the realpath of the filename and the profiles directory are not false.
+     * 2. It checks if the realpath of the filename starts with the realpath of the profiles directory.
+     * 3. It checks if the filename is not an empty string, '0', or not a file.
+     *
+     * @param string $filename The filename to be checked.
+     *
+     * @return bool Returns true if the filename is valid, false otherwise.
+     */
+    private static function isValidFilename(string $filename): bool
+    {
+        $filenameRealPath = realpath($filename);
+        $profilesDirRealPath = realpath(self::$profilesDir);
+
+        if ($filenameRealPath === false || $profilesDirRealPath === false || !str_starts_with(
+                $filenameRealPath,
+                $profilesDirRealPath
+            )) {
+            return false;
+        }
+
+        return !($filename === '' || $filename === '0' || !is_file($filename));
     }
 
 
