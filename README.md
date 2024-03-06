@@ -1,4 +1,4 @@
-# XhprofTrace
+# XhprofTrace ![CI](https://github.com/MarjovanLier/XhprofTrace/workflows/PHP%20CI/badge.svg)
 
 XhprofTrace is a PHP library that provides an interface for the XHProf profiling tool. It allows you to enable and
 disable profiling, and generate and display a report of the profiling data.
@@ -49,5 +49,8 @@ The library provides the following static methods:
 - `displayReportCLI()`: Generates a report from the profiling data and displays it in the console.
 
 ## License
+## GitHub Actions
+
+This repository utilizes GitHub Actions for continuous integration and testing across multiple PHP versions. The workflow automates the process of building Docker images, running Composer commands, and executing tests. This ensures that the codebase remains stable and compatible with the supported PHP versions.
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
