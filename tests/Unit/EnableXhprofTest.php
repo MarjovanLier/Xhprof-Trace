@@ -14,10 +14,11 @@ use PHPUnit\Framework\TestCase;
  */
 final class EnableXhprofTest extends TestCase
 {
+    private const MAIN = 'main()';
+
     public function testEnableXhprofWithNoErrors(): void
     {
         // Arrange
-
         // Act
         Trace::enableXhprof();
         /**
@@ -27,12 +28,12 @@ final class EnableXhprofTest extends TestCase
 
         // Assert
         $this->assertCount(1, $xhprofDisable);
-        $this->assertArrayNotHasKey('main()==>xhprof_disable', $xhprofDisable);
-        $this->assertArrayHasKey('main()', $xhprofDisable);
-        $this->assertArrayHasKey('ct', $xhprofDisable['main()']);
-        $this->assertArrayHasKey('wt', $xhprofDisable['main()']);
-        $this->assertArrayHasKey('cpu', $xhprofDisable['main()']);
-        $this->assertArrayHasKey('mu', $xhprofDisable['main()']);
-        $this->assertArrayHasKey('pmu', $xhprofDisable['main()']);
+        $this->assertArrayNotHasKey(self::MAIN . '==>xhprof_disable', $xhprofDisable);
+        $this->assertArrayHasKey(self::MAIN, $xhprofDisable);
+        $this->assertArrayHasKey('ct', $xhprofDisable[self::MAIN]);
+        $this->assertArrayHasKey('wt', $xhprofDisable[self::MAIN]);
+        $this->assertArrayHasKey('cpu', $xhprofDisable[self::MAIN]);
+        $this->assertArrayHasKey('mu', $xhprofDisable[self::MAIN]);
+        $this->assertArrayHasKey('pmu', $xhprofDisable[self::MAIN]);
     }
 }
