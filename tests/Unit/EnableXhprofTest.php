@@ -31,12 +31,25 @@ final class EnableXhprofTest extends TestCase
 
         // Assert
         $this->assertCount(1, $xhprofDisable);
-        $this->assertArrayNotHasKey(self::MAIN . '==>xhprof_disable', $xhprofDisable);
-        $this->assertArrayHasKey(self::MAIN, $xhprofDisable);
-        $this->assertArrayHasKey('ct', $xhprofDisable[self::MAIN]);
-        $this->assertArrayHasKey('wt', $xhprofDisable[self::MAIN]);
-        $this->assertArrayHasKey('cpu', $xhprofDisable[self::MAIN]);
-        $this->assertArrayHasKey('mu', $xhprofDisable[self::MAIN]);
-        $this->assertArrayHasKey('pmu', $xhprofDisable[self::MAIN]);
+        $this->assertArrayNotHasKey(
+            self::MAIN . '==>xhprof_disable',
+            $xhprofDisable,
+            'The main() function should not be in the trace'
+        );
+        $this->assertArrayHasKey(self::MAIN, $xhprofDisable, 'The main() function should be in the trace');
+        $this->assertArrayHasKey('ct', $xhprofDisable[self::MAIN], 'CPU time should be in the trace');
+        $this->assertGreaterThan(0, $xhprofDisable[self::MAIN]['ct'], 'CPU time should be greater than 0');
+        $this->assertArrayHasKey('wt', $xhprofDisable[self::MAIN], 'Wall time should be in the trace');
+        $this->assertGreaterThan(0, $xhprofDisable[self::MAIN]['wt'], 'Wall time should be greater than 0');
+        $this->assertArrayHasKey('cpu', $xhprofDisable[self::MAIN], 'CPU time should be in the trace');
+        $this->assertGreaterThan(0, $xhprofDisable[self::MAIN]['cpu'], 'CPU time should be greater than 0');
+        $this->assertArrayHasKey('mu', $xhprofDisable[self::MAIN], 'Memory usage should be in the trace');
+        $this->assertGreaterThan(0, $xhprofDisable[self::MAIN]['mu'], 'Memory usage should be greater than 0');
+        $this->assertArrayHasKey('pmu', $xhprofDisable[self::MAIN], 'Peak memory usage should be in the trace');
+        $this->assertGreaterThanOrEqual(
+            0,
+            $xhprofDisable[self::MAIN]['pmu'],
+            'Peak memory usage should be greater than 0'
+        );
     }
 }
