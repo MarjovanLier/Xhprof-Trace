@@ -32,6 +32,15 @@ final class Trace
 
 
     /**
+     * Get the directory where profile data files are stored.
+     */
+    public function getProfilesDir(): string
+    {
+        return self::$profilesDir;
+    }
+
+
+    /**
      * Sets the directory where profile data files are stored.
      *
      * @param string $path The path to the directory.
@@ -48,6 +57,8 @@ final class Trace
      * Enables XHProf profiling.
      *
      * @noinspection PhpUnused
+     *
+     * @infection-ignore-all
      */
     public static function enableXhprof(): void
     {
@@ -153,11 +164,14 @@ final class Trace
      */
     private static function generateReport(string $filename): array
     {
-        if (!is_file($filename)) {
+        $filename = htmlspecialchars($filename, ENT_QUOTES, 'UTF-8');
+
+        if (!self::isValidFilename($filename)) {
             return [];
         }
 
         $fileContents = file_get_contents($filename);
+
         if ($fileContents === false) {
             return [];
         }
@@ -168,6 +182,34 @@ final class Trace
         $data = json_decode($fileContents, true, 512, JSON_THROW_ON_ERROR);
 
         return self::processDataForReport($data);
+    }
+
+
+    /**
+     * Checks if the provided filename is valid.
+     *
+     * This method checks if the provided filename is valid by performing the following checks:
+     * 1. It checks if the realpath of the filename and the profiles directory are not false.
+     * 2. It checks if the realpath of the filename starts with the realpath of the profiles directory.
+     * 3. It checks if the filename is not an empty string, '0', or not a file.
+     *
+     * @param string $filename The filename to be checked.
+     *
+     * @return bool Returns true if the filename is valid, false otherwise.
+     */
+    private static function isValidFilename(string $filename): bool
+    {
+        $filenameRealPath = realpath($filename);
+        $profilesDirRealPath = realpath(self::$profilesDir);
+
+        if ($filenameRealPath === false
+            || $profilesDirRealPath === false
+            || !str_starts_with($filenameRealPath, $profilesDirRealPath)
+        ) {
+            return false;
+        }
+
+        return !($filename === '' || $filename === '0' || !is_file($filename));
     }
 
 
@@ -321,7 +363,8 @@ final class Trace
      * Calculates the rank for a given metric.
      *
      * @param array{ct: int, wt: int, cpu: int, mu: int, pmu: int, name: string} $item The array containing the metrics
-     *     and name for which the rank is calculated.
+     *                                                                                 and name for which the rank is
+     *                                                                                 calculated.
      *
      * @return array{int, int, int|string}
      */
