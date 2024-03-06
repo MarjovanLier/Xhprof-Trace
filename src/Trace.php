@@ -48,6 +48,9 @@ final class Trace
      * Enables XHProf profiling.
      *
      * @noinspection PhpUnused
+     *
+     * @infection-ignore-all
+     *
      */
     public static function enableXhprof(): void
     {

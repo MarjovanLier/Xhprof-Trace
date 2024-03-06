@@ -1,6 +1,6 @@
 <?php
 
-namespace Unit;
+namespace MarjovanLier\XhprofTrace\Tests\Unit\Unit;
 
 use MarjovanLier\XhprofTrace\Trace;
 use PHPUnit\Framework\TestCase;
