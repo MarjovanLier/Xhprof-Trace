@@ -31,6 +31,12 @@ final class Trace
     private static string $profilesDir = '/var/www/html/profiles/';
 
 
+    public function getProfilesDir(): string
+    {
+        return self::$profilesDir;
+    }
+
+
     /**
      * Sets the directory where profile data files are stored.
      *

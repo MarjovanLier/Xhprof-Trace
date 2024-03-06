@@ -6,7 +6,6 @@ namespace MarjovanLier\XhprofTrace\Tests\Unit\Unit;
 
 use MarjovanLier\XhprofTrace\Trace;
 use PHPUnit\Framework\TestCase;
-use ReflectionClass;
 
 /**
  * @internal
@@ -23,10 +22,7 @@ final class ProfilesDirTest extends TestCase
         // Call the method to set the profiles directory
         Trace::setProfilesDir($tempDir);
 
-        // Use reflection to access the private property
-        $reflectionProperty = (new ReflectionClass(Trace::class))->getProperty('profilesDir');
-
         // Assert that the profiles directory was set correctly
-        $this->assertEquals($tempDir, $reflectionProperty->getValue());
+        $this->assertEquals($tempDir, (new Trace())->getProfilesDir());
     }
 }
