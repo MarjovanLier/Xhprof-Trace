@@ -16,8 +16,6 @@ final class ProfilesDirTest extends TestCase
 {
     /**
      * This method tests the functionality of setting the profiles directory in the Trace class.
-     *
-     * @return void
      */
     public function testSetProfilesDir(): void
     {
