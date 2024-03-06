@@ -202,10 +202,10 @@ final class Trace
         $filenameRealPath = realpath($filename);
         $profilesDirRealPath = realpath(self::$profilesDir);
 
-        if ($filenameRealPath === false || $profilesDirRealPath === false || !str_starts_with(
-                $filenameRealPath,
-                $profilesDirRealPath
-            )) {
+        if ($filenameRealPath === false
+            || $profilesDirRealPath === false
+            || !str_starts_with($filenameRealPath, $profilesDirRealPath)
+        ) {
             return false;
         }
 
