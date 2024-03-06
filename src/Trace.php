@@ -59,7 +59,6 @@ final class Trace
      * @noinspection PhpUnused
      *
      * @infection-ignore-all
-     *
      */
     public static function enableXhprof(): void
     {
@@ -167,7 +166,10 @@ final class Trace
     {
         $filename = htmlspecialchars($filename, ENT_QUOTES, 'UTF-8');
 
-        if ($filename === '' || $filename === '0' || !is_file($filename)) {
+        if (($filename === '' || $filename === '0' || !is_file($filename)) && !str_starts_with(
+            realpath($filename),
+            realpath(self::$profilesDir)
+        )) {
             return [];
         }
 
