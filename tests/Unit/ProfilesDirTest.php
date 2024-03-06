@@ -25,7 +25,6 @@ final class ProfilesDirTest extends TestCase
 
         // Use reflection to access the private property
         $reflectionProperty = (new ReflectionClass(Trace::class))->getProperty('profilesDir');
-        $reflectionProperty->setAccessible(true);
 
         // Assert that the profiles directory was set correctly
         $this->assertEquals($tempDir, $reflectionProperty->getValue());

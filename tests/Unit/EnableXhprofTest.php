@@ -20,6 +20,9 @@ final class EnableXhprofTest extends TestCase
 
         // Act
         Trace::enableXhprof();
+        /**
+         * @var array<string, array<string, int|string>> $xhprofDisable
+         */
         $xhprofDisable = xhprof_disable();
 
         // Assert
