@@ -16,6 +16,7 @@ final class EnableXhprofTest extends TestCase
 {
     private const MAIN = 'main()';
 
+
     /**
      * This test case is designed to test the functionality of the `enableXhprof` method in the `Trace` class.
      */
@@ -24,6 +25,7 @@ final class EnableXhprofTest extends TestCase
         // Arrange
         // Act
         Trace::enableXhprof();
+
         /**
          * @var array<string, array<string, int|string>> $xhprofDisable
          */
