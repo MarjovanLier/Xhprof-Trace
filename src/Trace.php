@@ -170,12 +170,16 @@ final class Trace
 
         $fileContents = file_get_contents($filename);
 
+        if ($fileContents === false) {
+            return [];
+        }
+
         /**
          * @var array<string, array{ct: int, wt: int, cpu: int, mu: int, pmu: int, name: string}> $data
          */
         $data = json_decode($fileContents, true, 512, JSON_THROW_ON_ERROR);
 
-        return $fileContents === false ? [] : self::processDataForReport($data);
+        return self::processDataForReport($data);
     }
 
 
