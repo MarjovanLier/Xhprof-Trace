@@ -14,6 +14,11 @@ use PHPUnit\Framework\TestCase;
  */
 final class ProfilesDirTest extends TestCase
 {
+    /**
+     * This method tests the functionality of setting the profiles directory in the Trace class.
+     *
+     * @return void
+     */
     public function testSetProfilesDir(): void
     {
         // Set a temporary directory path for testing
