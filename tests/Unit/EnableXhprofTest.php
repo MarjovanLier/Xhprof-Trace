@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MarjovanLier\XhprofTrace\Tests\Unit\Unit;
 
 use MarjovanLier\XhprofTrace\Trace;
@@ -12,7 +14,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class EnableXhprofTest extends TestCase
 {
-    public function test_enable_xhprof_with_no_errors(): void
+    public function testEnableXhprofWithNoErrors(): void
     {
         // Arrange
 
